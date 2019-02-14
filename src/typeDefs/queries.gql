@@ -1,0 +1,5 @@
+type Query {
+    users(query: String): [User!]!
+    posts(query: String): [Post!]!
+    comments(query: String): [Comment!]!
+}

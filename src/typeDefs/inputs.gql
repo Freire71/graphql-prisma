@@ -1,0 +1,34 @@
+input CreateUserInput {
+    name: String!
+    email: String!
+    age: Int
+}
+
+input CreatePostInput {
+    title: String!
+    body: String!
+    published: Boolean!
+    authorID: ID!
+}
+
+input CreateCommentInput {
+    text: String!
+    authorID: ID!
+    postID: ID!
+}
+
+input UpdatePostInput {
+    title: String
+    body: String
+    published: Boolean
+}
+
+input UpdateUserInput {
+    name: String
+    email: String
+    age: Int
+}
+
+input UpdateCommentInput {
+    text: String
+}
