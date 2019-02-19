@@ -1,29 +1,42 @@
 const Query = {
-    users(parent, args, { db }, info) {
+    async users(parent, args, { prisma }, info) {
+        const opArgs = {}
         if (args.query) {
-            const filteredArray = db.users.filter(item => item.name.toLowerCase() === args.query.toLowerCase());
-            return filteredArray;
+            console.log(args.query)
+            opArgs.where = {
+                OR: [{
+                        name_contains: args.query
+                    },
+                    {
+                        email_contains: args.query
+                    }]
+            }
         }
-        return db.users;
+        return prisma.query.users(opArgs, info)
     },
-    posts(parent, args, { db }, info) {
+    async posts(parent, args, { prisma }, info) {
+        const opArgs = {}
         if (args.query) {
-            const filteredArray = db.posts.filter(item => {
-                return item.title.toLowerCase().includes(args.query.toLowerCase()) ||
-                item.body.toLocaleLowerCase().includes(args.query.toLowerCase())
-            })
-            return filteredArray;
+            console.log(args.query)
+            opArgs.where = {
+                OR: [{
+                        title_contains: args.query
+                    },
+                    {
+                        body_contains: args.query
+                    }]
+            }
         }
-        return db.posts;
+        return prisma.query.posts(opArgs, info)
     },
-    comments(parent, args, { db }, info) {
+    async comments(parent, args, { prisma }, info) {
+        const opArgs = {}
         if (args.query) {
-            const filteredArray = db.comments.filter(item => {
-                return item.text.toLowerCase().includes(args.query.toLocaleLowerCase())
-            })
-            return filteredArray
+          opArgs.where = {
+              text_contains: args.query
+          }
         }
-        return db.comments;
+        return prisma.query.comments(opArgs, info);
     }
 }
 
