@@ -39,7 +39,7 @@ export default {
                 }
             }, info)
         },
-        async deletePost (parent, { id }, { db, pubsub, prisma }, info) {
+        async deletePost (parent, { id }, { prisma }, info) {
             const postExists = await prisma.exists.Post({ id })
             if (!postExists) {
                 throw new Error("Could not find a post with the given ID")
@@ -50,7 +50,7 @@ export default {
                 }
             }, info)
         },        
-        async updatePost (parent, { id, data }, { db, pubsub, prisma }, info) {
+        async updatePost (parent, { id, data }, { prisma }, info) {
                 const postExists = await prisma.exists.Post({ id })
                 if (!postExists) {
                     throw new Error("Could not find a post with the given ID")

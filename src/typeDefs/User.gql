@@ -8,10 +8,6 @@ type User {
 }
 
 type Query {
-    comments(query: String): [Comment!]!
-}
-
-type Query {
     users(query: String): [User!]!
 }
 
@@ -19,6 +15,15 @@ type Mutation {
     createUser(data: CreateUserInput!): User!
     updateUser(id: ID!, data: UpdateUserInput!): User!
     deleteUser(id: String!): User!
+}
+
+type Subscription {
+    newUser: UserSubscriptionPayload!
+}
+
+type UserSubscriptionPayload {
+    mutation: MutationType!
+    node: User
 }
 
 input CreateUserInput {

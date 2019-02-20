@@ -54,7 +54,11 @@ export default {
     }
   },
   Subscription: {
-      
+      newUser: {
+        subscribe(parent, args, { prisma }, info) {
+            return prisma.subscription.user(null, info)
+        } 
+      }
   },
   
 }
