@@ -1,0 +1,40 @@
+
+type Comment {
+    id: ID!
+    text: String!
+    author: User!
+    post: Post!
+} 
+
+type Mutation {
+    createComment(data: CreateCommentInput!): Comment!
+    updateComment(id: ID!, data: UpdateCommentInput!): Comment!
+    deleteComment(id: String!): Comment!
+}
+
+type Subscription {
+    comment(postID: ID!): CommentSubscriptionPayload!
+}
+
+type CommentPreviousValues {
+    id: ID!
+    text: String!
+}
+
+type CommentSubscriptionPayload {
+    mutation: MutationType!
+    node: Comment
+    # updatedFields: [String!]
+    # previousValues: CommentPreviousValues
+}
+
+input CreateCommentInput {
+    text: String!
+    authorID: ID!
+    postID: ID!
+}
+
+input UpdateCommentInput {
+    text: String
+}
+

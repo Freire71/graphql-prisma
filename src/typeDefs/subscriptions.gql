@@ -1,8 +1,0 @@
-type Subscription {
-    count: Int!
-    comment(postID: ID!): CommentSubscriptionPayload!
-    authorPost(authorID: ID!): Post!
-    post: PostSubscriptionPayload!
-}
-
-
