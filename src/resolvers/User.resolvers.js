@@ -1,4 +1,6 @@
 export default {
+    User: {
+    },
     Query: {
         async users(parent, args, { prisma }, info) {
             const opArgs = {}
@@ -53,5 +55,6 @@ export default {
   },
   Subscription: {
       
-  }
+  },
+  
 }

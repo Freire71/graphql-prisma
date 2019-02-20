@@ -1,4 +1,7 @@
 export default {
+    Comment: {
+        
+    },
     Query: {
         async comments (parent, args, { prisma }, info) {
             const opArgs = {}
@@ -76,5 +79,6 @@ export default {
         
             }
         }
-    }
+    },
+    
 }

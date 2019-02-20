@@ -1,4 +1,7 @@
 export default {
+    Post: {
+        
+    },
     Query: {
         async posts (parent, args, { prisma }, info) {
             const opArgs = {}
@@ -87,5 +90,6 @@ export default {
                 return prisma.subscription.post(opArgs, info)
             }
         }
-    }
+    },
+   
 }
