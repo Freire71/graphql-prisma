@@ -9,20 +9,23 @@ import Post from './resolvers/Post'
 import Comment from './resolvers/Comment'
 import prisma from './prisma'
 
+import resolvers from './resolvers'
+
 //Scalar Types: String, Boolean, Int, Float, ID
 
 const pubsub = new PubSub()
 
 const server = new GraphQLServer({
     typeDefs,
-    resolvers: {
-        Query,
-        Mutation,
-        Subscription,
-        User,
-        Post,
-        Comment
-    },
+    resolvers,
+    // resolvers: {
+    //     Query,
+    //     Mutation,
+    //     Subscription,
+    //     User,
+    //     Post,
+    //     Comment
+    // },
     context: {
         db,
         prisma,
