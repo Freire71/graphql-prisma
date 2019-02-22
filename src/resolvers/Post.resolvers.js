@@ -68,11 +68,21 @@ export default {
             subscribe(parent, { authorID }, { prisma }, info) {
                 const opArgs = {
                     where: {
-                        node: {
-                            author: {
-                                id: authorID
+                        AND: 
+                        [
+                            {
+                                node: {
+                                    author: {
+                                        id: authorID
+                                    }
+                                }
+                            },
+                            {
+                                node: {
+                                    published: true
+                                }
                             }
-                        }
+                        ]
                     }
                 }
                 return prisma.subscription.post(opArgs, info)

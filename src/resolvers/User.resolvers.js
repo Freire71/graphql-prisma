@@ -1,3 +1,6 @@
+import bcrypt from 'bcryptjs'
+import jwt from 'jsonwebtoken'
+
 export default {
     User: {
     },
@@ -5,7 +8,6 @@ export default {
         async users(parent, args, { prisma }, info) {
             const opArgs = {}
             if (args.query) {
-                console.log(args.query)
                 opArgs.where = {
                     OR: [{
                             name_contains: args.query
@@ -20,13 +22,26 @@ export default {
   },
   Mutation: {
     async createUser(parent, args, { prisma }, info) {
-        console.log(args);
-        const { email } = args.data;
+        const { email, password } = args.data;
+
         const emailTaken = await prisma.exists.User({ email })
         if (emailTaken) {
             throw new Error("E-mail already taken")
         }
-        return prisma.mutation.createUser({ data: args.data }, info)
+        const passwordHasValidLength = password.length >= 8
+        if(!passwordHasValidLength) {
+            throw new Error("Password must be 8 characters long")
+        }
+        const encryptedPassword = await bcrypt.hash(password, 10)
+
+        const user = await prisma.mutation.createUser({ data: {
+            ...args.data,
+            password: encryptedPassword
+        } })
+        return {
+            user,
+            token: jwt.sign({ id: user.id }, 'thisisasecret')
+        }
     },
     async updateUser (parent, { id, data }, { prisma }, info) {
         const userExists = await prisma.exists.User({ id })
@@ -51,6 +66,24 @@ export default {
                 id
             }
         }, info)
+    },
+    async login (parent, { data: { email, password } } , { prisma }, info) {
+        const user = await prisma.query.user({
+            where: {
+                email
+            }
+        })
+        if (!user) {
+            throw new Error("Cannot find an user with the given Email")
+        }
+        const isMatch = await bcrypt.compare(password, user.password)
+        if(!isMatch) {
+            throw new Error("Wrong password. Try again")
+        }
+        return {
+            token: jwt.sign({ userId: user.id }, 'thisisasecret'),
+            user
+        }
     }
   },
   Subscription: {

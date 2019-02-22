@@ -12,7 +12,9 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "bcryptjs": "^2.4.3",
     "graphql-yoga": "^1.16.7",
+    "jsonwebtoken": "^8.5.0",
     "merge-graphql-schemas": "^1.5.8",
     "node-uuid": "^1.4.8",
     "prisma-binding": "^2.3.2"
