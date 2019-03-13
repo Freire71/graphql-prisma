@@ -32,7 +32,7 @@ export default {
         if(!passwordHasValidLength) {
             throw new Error("Password must be 8 characters long")
         }
-        const encryptedPassword = await bcrypt.hash(password, 10)
+        const encryptedPassword = await bcrypt.hashSync(password, 10)
 
         const user = await prisma.mutation.createUser({ data: {
             ...args.data,

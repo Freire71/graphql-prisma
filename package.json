@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon -e js,gql src/index.js --exec babel-node",
+    "start": "graphql get-schema -p prisma && nodemon -e js,gql src/index.js --exec babel-node",
     "get-schema": "graphql get-schema -p prisma"
   },
   "keywords": [],
@@ -13,6 +13,7 @@
   "license": "ISC",
   "dependencies": {
     "bcryptjs": "^2.4.3",
+    "graphql-shield": "^5.3.0",
     "graphql-yoga": "^1.16.7",
     "jsonwebtoken": "^8.5.0",
     "merge-graphql-schemas": "^1.5.8",
